@@ -7,6 +7,10 @@ var pg = require('pg');
 var knex = require('../config').knex;
 router.use(bodyParser.urlencoded({ extended: false }));
 
+router.get('/', function (req, res) {
+  res.send('Hello World!');
+});
+
 
 router.post('/api/v1/items', function(req, res) {
 
