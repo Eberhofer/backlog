@@ -8,5 +8,17 @@ It uses express, knex and bookshelf as well as ES6 promises
 ### schema and migrations
 ### orm
 ### api
+### config.js
+```js
+var conn = {
+  host: 'hostname',
+  user: 'username',
+  password: 'pw',
+  database: 'DB'
+}
+
+exports.connection = conn;
+exports.connectionString = "postgres://" + conn.user + ":" + conn.password + "@" + conn.host + "/" + conn.database;
+```
 ## express
 ## views
