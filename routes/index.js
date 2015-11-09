@@ -13,7 +13,7 @@ router.post('/api/v1/items', function(req, res) {
     var results = [];
 
     // Grab data from http request
-    var data = {text: req.body.text, complete: false};
+    var data = {item: req.body.item, item: req.body.story, item: req.body.project_id};
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
