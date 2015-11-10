@@ -19,6 +19,7 @@ var conn = {
 
 exports.connection = conn;
 exports.connectionString = "postgres://" + conn.user + ":" + conn.password + "@" + conn.host + "/" + conn.database;
+//without password: exports.connectionString = "postgres://" + conn.user + "@" + conn.host + "/" + conn.database;
 ```
 ## express
 ## views
