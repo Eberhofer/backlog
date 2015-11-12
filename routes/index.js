@@ -1,15 +1,21 @@
 'use strict';
 var connectionString = require('../config').connectionString;
 var express = require('express');
+var path = require('path');
+var appDir = path.join(__filename, '../../')
 var router = express.Router();
 var bodyParser = require('body-parser');
 var pg = require('pg');
 var knex = require('../config').knex;
-router.use(bodyParser.urlencoded({ extended: false }));
 
-router.get('/', function (req, res) {
-  res.send('Hello World!');
+router.get('/', function(req,res){
+     res.sendFile(path.join(appDir, 'public/index.html'));
 });
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
+// router.get('/', function (req, res) {
+//   res.send('Hello World!');
+// });
 
 
 router.post('/api/v1/items', function(req, res) {
