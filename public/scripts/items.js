@@ -69,6 +69,7 @@ var ContentBox = React.createClass({
     });
   },
   handleContentSubmit: function(item) {
+    console.log(item)
     $.ajax({
       url: this.props.url,
       dataType: 'json',

@@ -18,39 +18,32 @@ app.post('/api/v1/items', function(req, res) {
 //curl -H "Content-Type: application/json" -X POST –d "{\"item\":\"cmd api\",\"story\": \"entered through commandline and api\"}" http://localhost:3000/api/v1/items
     var results = [];
     // Grab data from http request
-    var data = {item: req.body.item, item: req.body.story, item: req.body.project_id};
+    var data = {item: req.body.item, story: req.body.story, project_id: req.body.project_id};
     // Get a Postgres client from the connection pool
-    console.log("I arrived here in the POST!!");
-    console.log("INSERT INTO items(item, story, project_id) values($1, $2, $3)", [data.item, data.story, data.project_id]);
     pg.connect(connectionString, function(err, client, done) {
         // SQL Query > Insert Data
         client.query("INSERT INTO items(item, story, project_id) values($1, $2, $3)", [data.item, data.story, data.project_id]);
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM items ORDER BY id ASC");
-
         // Stream results back one row at a time
         query.on('row', function(row) {
             results.push(row);
         });
-
         // After all data is returned, close connection and return results
         query.on('end', function() {
             client.end();
             return res.json(results);
         });
-
         // Handle Errors
         if(err) {
           console.log(err);
         }
-
     });
 });
 
 app.get('/api/v1/items', function(req, res) {
     var results = [];
     // Get a Postgres client from the connection pool
-    console.log("I arrived here in the GET!!");
     pg.connect(connectionString, function(err, client, done) {
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM items ORDER BY id ASC;");
