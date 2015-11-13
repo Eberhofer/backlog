@@ -6,13 +6,13 @@ var port = process.env.PORT || 3000;
 var pg = require('pg');
 var knex = require('./config').knex;
 var connectionString = require('./config').connectionString;
+var bodyParser = require('body-parser');
 
 var app = express();
+app.set('port', port);
 app.use('/', express.static(path.join(__dirname, 'public')));
-
-//server.listen(port, function () {
-//  console.log('Server running on port %d', port);
-//});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/api/v1/items', function(req, res) {
 
@@ -50,15 +50,11 @@ app.post('/api/v1/items', function(req, res) {
 });
 
 app.get('/api/v1/items', function(req, res) {
-
     var results = [];
-
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
-
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM items ORDER BY id ASC;");
-
         // Stream results back one row at a time
         query.on('row', function(row) {
             results.push(row);
@@ -74,7 +70,6 @@ app.get('/api/v1/items', function(req, res) {
         if(err) {
           console.log(err);
         }
-
     });
 });
 
@@ -154,11 +149,6 @@ app.delete('/api/v1/items/:item_id', function(req, res) {
 
 });
 
-
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('app listening at http://%s:%s', host, port);
+app.listen(app.get('port'), function() {
+  console.log('Server started: http://localhost:' + app.get('port') + '/');
 });

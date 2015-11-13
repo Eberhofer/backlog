@@ -1,10 +1,44 @@
 var ContentBox = React.createClass({
+  loadContentsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  handleContentSubmit: function(mycontent) {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: mycontent,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadContentsFromServer();
+    setInterval(this.loadContentsFromServer, this.props.pollInterval);
+  },
   render: function() {
     return (
       <div className="contentBox">
       <h1>Content</h1>
-      <ContentList data={this.props.data} />
-      <ContentForm />
+      <ContentList data={this.state.data} />
+      <ContentForm onContentSubmit={this.handleContentSubmit} />
       </div>
     );
   }
@@ -15,7 +49,7 @@ var ContentList = React.createClass({
     var contentNodes = this.props.data.map(function(items) {
       return (
         <Content item={items.item} key={items.id}>
-          {items.story}
+          Story: {items.story}, ProjectID = {items.project_id}
         </Content>
       );
     });
@@ -28,11 +62,27 @@ var ContentList = React.createClass({
 });
 
 var ContentForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var item = this.refs.item.value.trim();
+    var story = this.refs.story.value.trim();
+    var project_id = this.refs.project_id.value;
+    if (!item || !story || !project_id) {
+      return;
+    }
+    this.props.onCommentSubmit({item: item, story: story, project_id: project_id});
+    this.refs.item.value = '';
+    this.refs.story.value = '';
+    return;
+  },
   render: function() {
     return (
-      <div className="contentForm">
-        Hello, world! I am a ContentForm.
-      </div>
+      <form className="contentForm">
+        <input type="text" placeholder="Item" ref="item"/>
+        <input type="text" placeholder="The item does ..."  ref="story"/>
+        <input type="number" placeholder="Enter the ProjectID"  ref="project_id"/>
+        <input type="submit" value="Post" />
+      </form>
     );
   }
 });
@@ -48,29 +98,9 @@ var Content = React.createClass({
     );
   }
 });
-var data = [
-  {id: 1, item: "Pete Hunt", story: "This is one comment", project_id: 1},
-  {id: 2, item: "Jordan Walke", sotry: "This is *another* comment", project_id: 1}
-];
+
 ReactDOM.render(
-  <ContentBox data={data}/>,
+  // <ContentBox data={data}/>,
+  <ContentBox url="/api/v1/items"  pollInterval={2000}/>,
   document.getElementById('content')
 );
-// <script type='text/jsx'>
-  // var Example1 = React.createClass({
-  //
-  //   add: function() {
-  //     console.log('add 1!');
-  //   },
-  //
-  //   render: function() {
-  //     return(
-  //       <div>
-  //         <h1>Counter</h1>
-  //         <button onClick={this.add}>+</button>
-  //       </div>
-  //     );
-  //   }
-  // });
-  //
-  // React.render(<Example1 />, document.getElementById('content'));
