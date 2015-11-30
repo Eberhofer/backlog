@@ -12,24 +12,33 @@ var Content = React.createClass({
 });
 
 var ContentList = React.createClass({
-  handleClick: function(keyid) {
-    alert('clicked on item with id '+keyid);
+  handleClick: function(keyid, field) {
+    alert('clicked on item with id '+keyid+' '+field);
   },
   render: function() {
     var contentNodes = this.props.data.map(function(items) {
       var keyid = items.id
       return (
-        <tr key={keyid} onClick={this.handleClick.bind(this, keyid)}>
-          <td>{items.item}</td>
-          <td>{items.story}</td>
-          <td>{items.projectid}</td>
+        <tr key={keyid}>
+          <td onClick={this.handleClick.bind(this, keyid, 'item')}>{items.item}</td>
+          <td onClick={this.handleClick.bind(this, keyid, 'story')}>{items.story}</td>
+          <td onClick={this.handleClick.bind(this, keyid, 'project_id')}>{items.project_id}</td>
         </tr>
       );
     }, this);
     return (
-      <tbody>
-      {contentNodes}
-      </tbody>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Story</th>
+            <th>ProjectID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contentNodes}
+        </tbody>
+      </table>
     );
   }
 });
@@ -100,14 +109,7 @@ var ContentBox = React.createClass({
     return (
       <div className="contentBox">
       <h1>Content</h1>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Title</th>
-          </tr>
-        </thead>
-          <ContentList data={this.state.data} />
-      </table>
+      <ContentList data={this.state.data} />
       <h2>Add item</h2>
       <ContentForm onContentSubmit={this.handleContentSubmit} />
       </div>
