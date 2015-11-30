@@ -12,16 +12,20 @@ var Content = React.createClass({
 });
 
 var ContentList = React.createClass({
+  handleClick: function(keyid) {
+    alert('clicked on item with id '+keyid);
+  },
   render: function() {
     var contentNodes = this.props.data.map(function(items) {
+      var keyid = items.id
       return (
-        <tr key={items.id}>
+        <tr key={keyid} onClick={this.handleClick.bind(this, keyid)}>
           <td>{items.item}</td>
           <td>{items.story}</td>
           <td>{items.projectid}</td>
         </tr>
       );
-    });
+    }, this);
     return (
       <tbody>
       {contentNodes}
@@ -96,7 +100,7 @@ var ContentBox = React.createClass({
     return (
       <div className="contentBox">
       <h1>Content</h1>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>Title</th>
