@@ -15,15 +15,17 @@ var ContentList = React.createClass({
   render: function() {
     var contentNodes = this.props.data.map(function(items) {
       return (
-        <Content item={items.item} key={items.id}>
-          Story: {items.story}, ProjectID = {items.project_id}
-        </Content>
+        <tr key={items.id}>
+          <td>{items.item}</td>
+          <td>{items.story}</td>
+          <td>{items.projectid}</td>
+        </tr>
       );
     });
     return (
-      <div className="contentList">
+      <tbody>
       {contentNodes}
-      </div>
+      </tbody>
     );
   }
 });
@@ -94,7 +96,15 @@ var ContentBox = React.createClass({
     return (
       <div className="contentBox">
       <h1>Content</h1>
-      <ContentList data={this.state.data} />
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+          </tr>
+        </thead>
+          <ContentList data={this.state.data} />
+      </table>
+      <h2>Add item</h2>
       <ContentForm onContentSubmit={this.handleContentSubmit} />
       </div>
     );
