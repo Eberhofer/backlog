@@ -46,7 +46,7 @@ app.get('/api/v1/items', function(req, res) {
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
         // SQL Query > Select Data
-        var query = client.query("SELECT * FROM items ORDER BY id ASC;");
+        var query = client.query("SELECT i.id, i.item, i.story, i.project_id, p.project, p.story as projectstory, p.mandate_id, m.mandate FROM items i inner join projects p on i.project_id = p.id inner join mandates m on m.id = p.mandate_id ORDER BY i.id ASC;");
         // Stream results back one row at a time
         query.on('row', function(row) {
             results.push(row);
