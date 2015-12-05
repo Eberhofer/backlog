@@ -64,6 +64,29 @@ app.get('/api/v1/items', function(req, res) {
         }
     });
 });
+app.get('/api/v1/products', function(req, res) {
+    var results = [];
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+        // SQL Query > Select Data
+        var query = client.query("SELECT p.id, p.project, p.story FROM projects p ORDER BY p.id ASC;");
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            client.end();
+            return res.json(results);
+        });
+
+        // Handle Errors
+        if(err) {
+          console.log(err);
+        }
+    });
+});
 
 app.put('/api/v1/items/:item_id', function(req, res) {
 
