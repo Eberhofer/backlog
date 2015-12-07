@@ -64,7 +64,7 @@ app.get('/api/v1/items', function(req, res) {
         }
     });
 });
-app.get('/api/v1/products', function(req, res) {
+app.get('/api/v1/projects', function(req, res) {
     var results = [];
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {

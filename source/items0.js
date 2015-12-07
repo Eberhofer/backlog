@@ -1,5 +1,5 @@
-// var React = require('react');
-// var ReactDOM = require('react-dom');
+var React = require('react');
+var ReactDOM = require('react-dom');
 
 var Content = React.createClass({
   render: function() {
@@ -131,6 +131,6 @@ var ContentBox = React.createClass({
 
 ReactDOM.render(
   // <ContentBox data={data}/>,
-  <ContentBox url="localhost:3000/api/v1/items"  pollInterval={20000}/>,
+  <ContentBox url="/api/v1/items"  pollInterval={20000}/>,
   document.getElementById('content')
 );

@@ -1,55 +1,18 @@
-// var React = require('react');
-// var ReactDOM = require('react-dom');
-
-var Content = React.createClass({
-  render: function() {
-    return (
-      <div className="Mycontent">
-        <h2 className="contentItem">
-          {this.props.item}
-        </h2>
-        {this.props.children}
-      </div>
-    );
-  }
-});
+var Content = require('./components/content.react');
 
 var ContentList = React.createClass({
-  handleClick: function(keyid, field) {
-    alert('clicked on item with id '+keyid+' '+field);
-  },
   render: function() {
     var contentNodes = this.props.data.map(function(items) {
-      var keyid = items.id
       return (
-        <tr key={keyid}>
-          <td onClick={this.handleClick.bind(this, keyid, 'item')}>{items.item}</td>
-          <td onClick={this.handleClick.bind(this, keyid, 'story')}>{items.story}</td>
-          <td onClick={this.handleClick.bind(this, keyid, 'project')}>{items.project}</td>
-          <td onClick={this.handleClick.bind(this, keyid, 'projectstory')}>{items.projectstory}</td>
-          <td onClick={this.handleClick.bind(this, keyid, 'project_id')}>{items.project_id}</td>
-          <td onClick={this.handleClick.bind(this, keyid, 'edit')}>e</td>
-          <td onClick={this.handleClick.bind(this, keyid, 'delete')}>x</td>
-        </tr>
+        <Content item={items.item} key={items.id}>
+          Story: {items.story}, ProjectID = {items.project_id}
+        </Content>
       );
-    }, this);
+    });
     return (
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Story</th>
-            <th>Project</th>
-            <th>ProjectStory</th>
-            <th>ProjectID</th>
-            <th>e</th>
-            <th>x</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contentNodes}
-        </tbody>
-      </table>
+      <div className="contentList">
+      {contentNodes}
+      </div>
     );
   }
 });
@@ -121,7 +84,6 @@ var ContentBox = React.createClass({
       <div className="contentBox">
       <h1>Content</h1>
       <ContentList data={this.state.data} />
-      <h2>Add item</h2>
       <ContentForm onContentSubmit={this.handleContentSubmit} />
       </div>
     );
@@ -131,6 +93,6 @@ var ContentBox = React.createClass({
 
 ReactDOM.render(
   // <ContentBox data={data}/>,
-  <ContentBox url="localhost:3000/api/v1/items"  pollInterval={20000}/>,
+  <ContentBox url="/api/v1/items"  pollInterval={20000}/>,
   document.getElementById('content')
 );
