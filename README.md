@@ -1,6 +1,6 @@
 # backlog
 
-A backlog for my idiosyncratic purposes and really just to learn **Node.js** with **PostgreSQL**.
+A backlog for my idiosyncratic purposes and really just to learn **Node.js** with **React** and **PostgreSQL**.
 
 It uses express, knex and bookshelf as well as ES6 promises
 
