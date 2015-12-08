@@ -17,5 +17,6 @@ describe('item utitilities module',  function () {
       var expectedBooleanValue = false;
       var actualBooleanValue = itemUtils.isEmptyItems(itemMock);
       expect(actualBooleanValue).toBe(expectedBooleanValue);
+      expect(actualBooleanValue).toBeDefined();
     });
   });

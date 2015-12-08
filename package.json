@@ -24,6 +24,7 @@
     "browserify": "^12.0.1",
     "gulp": "^3.9.0",
     "jest-cli": "^0.8.0",
+    "react-addons-test-utils": "^0.14.3",
     "react-tools": "^0.13.3",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
