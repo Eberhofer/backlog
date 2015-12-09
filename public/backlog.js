@@ -19018,6 +19018,34 @@ module.exports = require('./lib/React');
 
 },{"./lib/React":53}],159:[function(require,module,exports){
 var React = require('react');
+
+var CheckboxWithLabel = React.createClass({displayName: "CheckboxWithLabel",
+
+  getInitialState: function () {
+    return {
+      isChecked: false
+    };
+  },
+  onChange() {
+    this.setState({isChecked: !this.state.isChecked});
+  },
+  render() {
+    return (
+      React.createElement("label", null, 
+        React.createElement("input", {
+          type: "checkbox", 
+          checked: this.state.isChecked, 
+          onChange: this.onChange}
+        ), 
+        this.state.isChecked ? this.props.labelOn : this.props.labelOff
+      )
+    );
+  }
+});
+
+module.exports = CheckboxWithLabel;
+},{"react":158}],160:[function(require,module,exports){
+var React = require('react');
 var ReactDOM = require('react-dom');
 
 var ItemsForm = React.createClass({displayName: "ItemsForm",
@@ -19048,7 +19076,7 @@ var ItemsForm = React.createClass({displayName: "ItemsForm",
 
 
 module.exports = ItemsForm;
-},{"react":158,"react-dom":29}],160:[function(require,module,exports){
+},{"react":158,"react-dom":29}],161:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -19071,7 +19099,7 @@ var ItemsHeader = React.createClass({displayName: "ItemsHeader",
 });
 
 module.exports = ItemsHeader;
-},{"react":158,"react-dom":29}],161:[function(require,module,exports){
+},{"react":158,"react-dom":29}],162:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -19097,7 +19125,7 @@ var ItemsRow = React.createClass({displayName: "ItemsRow",
 });
 
 module.exports = ItemsRow;
-},{"react":158,"react-dom":29}],162:[function(require,module,exports){
+},{"react":158,"react-dom":29}],163:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ItemsRow = require('./itemsRow.react');
@@ -19124,13 +19152,13 @@ var ItemsTable = React.createClass({displayName: "ItemsTable",
 });
 
 module.exports = ItemsTable;
-},{"./itemsHeader.react":160,"./itemsRow.react":161,"react":158,"react-dom":29}],163:[function(require,module,exports){
+},{"./itemsHeader.react":161,"./itemsRow.react":162,"react":158,"react-dom":29}],164:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
 var ItemsTable = require('./components/itemsTable.react');
 var ItemsForm = require('./components/itemsForm.react');
-
+var CheckboxWithLabel = require('./components/CheckBoxWithLabel.react');
 var ContentBox = React.createClass({displayName: "ContentBox",
   loadContentsFromServer: function() {
     $.ajax({
@@ -19173,7 +19201,8 @@ var ContentBox = React.createClass({displayName: "ContentBox",
       React.createElement("h1", null, "Content"), 
       React.createElement(ItemsTable, {data: this.state.data}), 
       React.createElement("h2", null, "Add item"), 
-      React.createElement(ItemsForm, {onContentSubmit: this.handleContentSubmit})
+      React.createElement(ItemsForm, {onContentSubmit: this.handleContentSubmit}), 
+      React.createElement(CheckboxWithLabel, {labelOn: "...Chabis", labelOff: "So en ..."})
       )
     );
   }
@@ -19185,4 +19214,4 @@ ReactDOM.render(
   React.createElement(ContentBox, {url: "http://localhost:3000/api/v1/items", pollInterval: 20000}),
   document.getElementById('content')
 );
-},{"./components/itemsForm.react":159,"./components/itemsTable.react":162,"react":158,"react-dom":29}]},{},[163]);
+},{"./components/CheckBoxWithLabel.react":159,"./components/itemsForm.react":160,"./components/itemsTable.react":163,"react":158,"react-dom":29}]},{},[164]);

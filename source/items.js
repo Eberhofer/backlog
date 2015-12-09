@@ -2,9 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var ItemsTable = require('./components/itemsTable.react');
-
 var ItemsForm = require('./components/itemsForm.react');
-
+var CheckboxWithLabel = require('./components/CheckBoxWithLabel.react');
 var ContentBox = React.createClass({
   loadContentsFromServer: function() {
     $.ajax({
@@ -48,6 +47,7 @@ var ContentBox = React.createClass({
       <ItemsTable data={this.state.data} />
       <h2>Add item</h2>
       <ItemsForm onContentSubmit={this.handleContentSubmit} />
+      <CheckboxWithLabel labelOn="...Chabis" labelOff="So en ..." />
       </div>
     );
   }
