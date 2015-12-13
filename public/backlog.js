@@ -19065,9 +19065,9 @@ var ItemsForm = React.createClass({displayName: "ItemsForm",
   render: function() {
     return (
       React.createElement("form", {onSubmit: this.handleSubmit}, 
-        React.createElement("input", {type: "text", placeholder: "Item", ref: "item"}), 
-        React.createElement("input", {type: "text", placeholder: "The item does ...", ref: "story"}), 
-        React.createElement("input", {type: "number", min: "1", step: "1", placeholder: "Enter the ProjectID", ref: "project_id"}), 
+        React.createElement("input", {type: "text", placeholder: "Item", ref: "item", tag: "input"}), 
+        React.createElement("input", {type: "text", placeholder: "The item does ...", ref: "story", tag: "input"}), 
+        React.createElement("input", {type: "number", min: "1", step: "1", placeholder: "Enter the ProjectID", ref: "project_id", tag: "input"}), 
         React.createElement("input", {type: "submit", value: "Post"})
       )
     );

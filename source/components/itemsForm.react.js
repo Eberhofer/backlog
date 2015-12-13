@@ -18,9 +18,9 @@ var ItemsForm = React.createClass({
   render: function() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Item" ref="item"/>
-        <input type="text" placeholder="The item does ..."  ref="story"/>
-        <input type="number"  min="1" step="1" placeholder="Enter the ProjectID"  ref="project_id"/>
+        <input type="text" placeholder="Item" ref="item" tag="input"/>
+        <input type="text" placeholder="The item does ..."  ref="story" tag="input"/>
+        <input type="number"  min="1" step="1" placeholder="Enter the ProjectID"  ref="project_id" tag="input"/>
         <input type="submit" value="Post" />
       </form>
     );
