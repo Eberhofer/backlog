@@ -6,17 +6,16 @@ var ItemsRow = React.createClass({
     alert('clicked on item with id '+keyid+' '+field);
   },
   render: function() {
-    var keyid = this.props.key;
     var item = this.props.items;
     return (
-      <tr key={this.props.keyid}>
-        <td onClick={this.handleClick.bind(this, keyid, 'item')}>{item.item}</td>
-        <td onClick={this.handleClick.bind(this, keyid, 'story')}>{item.story}</td>
-        <td onClick={this.handleClick.bind(this, keyid, 'project')}>{item.project}</td>
-        <td onClick={this.handleClick.bind(this, keyid, 'projectstory')}>{item.projectstory}</td>
-        <td onClick={this.handleClick.bind(this, keyid, 'project_id')}>{item.project_id}</td>
-        <td onClick={this.handleClick.bind(this, keyid, 'edit')}>e</td>
-        <td onClick={this.handleClick.bind(this, keyid, 'delete')}>x</td>
+      <tr key={item.id}>
+        <td onClick={this.handleClick.bind(this, item.id, 'item')}>{item.item}</td>
+        <td onClick={this.handleClick.bind(this, item.id, 'story')}>{item.story}</td>
+        <td onClick={this.handleClick.bind(this, item.id, 'project')}>{item.project}</td>
+        <td onClick={this.handleClick.bind(this, item.id, 'projectstory')}>{item.projectstory}</td>
+        <td onClick={this.handleClick.bind(this, item.id, 'project_id')}>{item.project_id}</td>
+        <td onClick={this.handleClick.bind(this, item.id, 'edit')}>e</td>
+        <td onClick={this.handleClick.bind(this, item.id, 'delete')}>x</td>
       </tr>
     );
   }
