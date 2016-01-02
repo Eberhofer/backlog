@@ -16,7 +16,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 
-app.post('/api/v1/items', function(req, res) {
+app.route('/api/v1/items')
+.post(function(req, res) {
 //curl -H "Content-Type: application/json" -X POST –d "{\"item\":\"cmd api\",\"story\": \"entered through commandline and api\"}" http://localhost:3000/api/v1/items
     var results = [];
     // Grab data from http request
@@ -41,9 +42,8 @@ app.post('/api/v1/items', function(req, res) {
           console.log(err);
         }
     });
-});
-
-app.get('/api/v1/items', function(req, res) {
+})
+.get(function(req, res) {
     var results = [];
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
@@ -53,30 +53,6 @@ app.get('/api/v1/items', function(req, res) {
         query.on('row', function(row) {
             results.push(row);
         });
-
-        // After all data is returned, close connection and return results
-        query.on('end', function() {
-            client.end();
-            return res.json(results);
-        });
-
-        // Handle Errors
-        if(err) {
-          console.log(err);
-        }
-    });
-});
-app.get('/api/v1/projects', function(req, res) {
-    var results = [];
-    // Get a Postgres client from the connection pool
-    pg.connect(connectionString, function(err, client, done) {
-        // SQL Query > Select Data
-        var query = client.query("SELECT p.id, p.project, p.story FROM projects p ORDER BY p.id ASC;");
-        // Stream results back one row at a time
-        query.on('row', function(row) {
-            results.push(row);
-        });
-
         // After all data is returned, close connection and return results
         query.on('end', function() {
             client.end();
@@ -90,7 +66,8 @@ app.get('/api/v1/projects', function(req, res) {
     });
 });
 
-app.put('/api/v1/items/:item_id', function(req, res) {
+app.route('/api/v1/items/:item_id')
+.put(function(req, res) {
 
     var results = [];
 
@@ -121,8 +98,7 @@ app.put('/api/v1/items/:item_id', function(req, res) {
         }
     });
 });
-
-// app.delete('/api/v1/items/:item_id', function(req, res) {
+//.delete(function(req, res) {
 //     var results = [];
 //     // Grab data from the URL parameters
 //     var id = req.params.todo_id;
@@ -153,6 +129,31 @@ app.put('/api/v1/items/:item_id', function(req, res) {
 //         }
 //     });
 // });
+
+app.route('/api/v1/projects')
+.get(function(req, res) {
+    var results = [];
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+        // SQL Query > Select Data
+        var query = client.query("SELECT p.id, p.project, p.story FROM projects p ORDER BY p.id ASC;");
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            client.end();
+            return res.json(results);
+        });
+
+        // Handle Errors
+        if(err) {
+          console.log(err);
+        }
+    });
+});
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
