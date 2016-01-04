@@ -19089,7 +19089,6 @@ var ItemsHeader = React.createClass({displayName: "ItemsHeader",
           React.createElement("th", null, "Story"), 
           React.createElement("th", null, "Project"), 
           React.createElement("th", null, "ProjectStory"), 
-          React.createElement("th", null, "ProjectID"), 
           React.createElement("th", null, "e"), 
           React.createElement("th", null, "x")
         )
@@ -19111,12 +19110,10 @@ var ItemsRow = React.createClass({displayName: "ItemsRow",
     var item = this.props.items;
     return (
       React.createElement("tr", {key: item.id}, 
-        React.createElement("td", null, item.id), 
         React.createElement("td", {onClick: this.handleClick.bind(this, item.id, 'item')}, item.item), 
         React.createElement("td", {onClick: this.handleClick.bind(this, item.id, 'story')}, item.story), 
         React.createElement("td", {onClick: this.handleClick.bind(this, item.id, 'project')}, item.project), 
         React.createElement("td", {onClick: this.handleClick.bind(this, item.id, 'projectstory')}, item.projectstory), 
-        React.createElement("td", {onClick: this.handleClick.bind(this, item.id, 'project_id')}, item.project_id), 
         React.createElement("td", {onClick: this.handleClick.bind(this, item.id, 'edit')}, "e"), 
         React.createElement("td", {onClick: this.handleClick.bind(this, item.id, 'delete')}, "x")
       )

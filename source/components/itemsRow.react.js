@@ -13,7 +13,6 @@ var ItemsRow = React.createClass({
         <td onClick={this.handleClick.bind(this, item.id, 'story')}>{item.story}</td>
         <td onClick={this.handleClick.bind(this, item.id, 'project')}>{item.project}</td>
         <td onClick={this.handleClick.bind(this, item.id, 'projectstory')}>{item.projectstory}</td>
-        <td onClick={this.handleClick.bind(this, item.id, 'project_id')}>{item.project_id}</td>
         <td onClick={this.handleClick.bind(this, item.id, 'edit')}>e</td>
         <td onClick={this.handleClick.bind(this, item.id, 'delete')}>x</td>
       </tr>
