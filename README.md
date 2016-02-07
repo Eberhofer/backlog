@@ -8,7 +8,7 @@ It uses express, knex and bookshelf as well as ES6 promises.
 ## models
 ### schema and migrations
 create the database in PostgreSQL, create the config.js file (see below), cd to models and run 'npm migrations'.
-Then start cd to the root directory and run 'npm start' (or, if that fails, 'node app').
+Then cd to the root directory and run 'npm start' (or, if that fails, 'node app').
 ### orm
 ### api
 ### config.js
