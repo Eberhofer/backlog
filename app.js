@@ -1,6 +1,6 @@
 'use strict';
 var express = require('express');
-var routes = require('./routes/index');
+//var routes = require('./routes/index');
 var path = require('path');
 var port = process.env.PORT || 3000;
 var pg = require('pg');

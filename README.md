@@ -2,10 +2,13 @@
 
 A backlog for my idiosyncratic purposes and really just to learn **Node.js** with **React** and **PostgreSQL**.
 
-It uses express, knex and bookshelf as well as ES6 promises
+It uses express, knex and bookshelf as well as ES6 promises.
+
 
 ## models
 ### schema and migrations
+create the database in PostgreSQL, create the config.js file (see below), cd to models and run 'npm migrations'.
+Then start cd to the root directory and run 'npm start' (or, if that fails, 'node app').
 ### orm
 ### api
 ### config.js
