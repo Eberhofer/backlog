@@ -1,9 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-
+var itemsReducers = require('./Reducers/itemsReducers');
 var ItemsTable = require('./components/itemsTable.react');
 var ItemsForm = require('./components/itemsForm.react');
 var CheckboxWithLabel = require('./components/CheckBoxWithLabel.react');
+var createStore = require('redux').createStore;
+const store = createStore(itemsReducers);
+
+console.log(itemsReducers.ADD_ITEM)
 var ContentBox = React.createClass({
   loadContentsFromServer: function() {
     $.ajax({
