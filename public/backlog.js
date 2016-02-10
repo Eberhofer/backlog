@@ -19587,7 +19587,7 @@ module.exports = items;
 },{"../actions/itemsActions":169}],169:[function(require,module,exports){
 const itemsActions ={
   ADD_ITEM: 'ADD_ITEM',
-  EDIT_ITEM_FIELD: 'EDIT_FIELD',
+  CLICK_ITEM_FIELD: 'CLICK_ITEM_FIELD',
   REMOVE_ITEM: 'REMOVE_ITEM',
   EDIT_ITEM: 'EDIT_ITEM'
 }
@@ -19595,15 +19595,15 @@ const itemsActions ={
 function addItem(item) {
   return { type: ADD_ITEM, item}
 }
-function editItemField(itemField) {
-  return { type: EDIT_ITEM_FIELD, itemField }
+function clickItemField(itemField) {
+  return { type: CLICK_ITEM_FIELD, itemField }
 }
 function removeItem(id) {
   return { type: REMOVE_ITEM, id }
 }
 exports.itemsActions = itemsActions;
 exports.addItem = addItem
-exports.editItemField = editItemField
+exports. clickItemField = clickItemField
 exports.removeItem = removeItem
 },{}],170:[function(require,module,exports){
 var React = require('react');
@@ -19746,10 +19746,24 @@ var ItemsTable = require('./components/itemsTable.react');
 var ItemsForm = require('./components/itemsForm.react');
 var CheckboxWithLabel = require('./components/CheckBoxWithLabel.react');
 var createStore = require('redux').createStore;
-const store = createStore(itemsReducers);
 
-console.log(itemsReducers.ADD_ITEM)
+// const store = createStore(itemsReducers, getStateFromDB());
+
+// console.log(store.state)
 var ContentBox = React.createClass({displayName: "ContentBox",
+  getStateFromDB: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    })
+  },
   loadContentsFromServer: function() {
     $.ajax({
       url: this.props.url,

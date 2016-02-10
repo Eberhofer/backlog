@@ -5,10 +5,24 @@ var ItemsTable = require('./components/itemsTable.react');
 var ItemsForm = require('./components/itemsForm.react');
 var CheckboxWithLabel = require('./components/CheckBoxWithLabel.react');
 var createStore = require('redux').createStore;
-const store = createStore(itemsReducers);
 
-console.log(itemsReducers.ADD_ITEM)
+// const store = createStore(itemsReducers, getStateFromDB());
+
+// console.log(store.state)
 var ContentBox = React.createClass({
+  getStateFromDB: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    })
+  },
   loadContentsFromServer: function() {
     $.ajax({
       url: this.props.url,
